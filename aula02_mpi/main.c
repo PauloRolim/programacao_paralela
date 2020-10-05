@@ -2,7 +2,6 @@
 #include <mpi.h>
 
 int main(void) {
-
 	int my_rank, comm_sz;
 
 	MPI_Init(NULL, NULL);
