@@ -51,7 +51,7 @@ int main (int argc, char *argv[])
         pontos = sorteio(tamanho_problema);
 
         MPI_Send(&pontos, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
-              
+
     } else {
         
         double pontos_total = 0.0;
@@ -77,17 +77,17 @@ int main (int argc, char *argv[])
             pi = 4.0 * pontos_total / tamanho_problema;
         }
 
-        gettimeofday(&stop, 0);
-
         std::cout << "O valor de Pi e " << pi << std::endl;
 
+        gettimeofday(&stop, 0);
+    
+        tempo_exec = (double)(stop.tv_usec - start.tv_usec) / 1000000 + (double)(stop.tv_sec - start.tv_sec);
+
+        //exibe na tela o tempo de execução em notação científica
+        std::cout << "O tempo de execução foi " << (std::scientific) << tempo_exec << std::endl; 
+
     }         
-
-    tempo_exec = (double)(stop.tv_usec - start.tv_usec) / 1000000 + (double)(stop.tv_sec - start.tv_sec);
-
-    //exibe na tela o tempo de execução em notação científica
-    std::cout << "O tempo de execução foi " << (std::scientific) << tempo_exec << std::endl; 
-
+   
     MPI_Finalize();
     return 0;
 }
