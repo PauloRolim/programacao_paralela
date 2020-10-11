@@ -42,11 +42,11 @@ int main (int argc, char *argv[])
     /*Início da região paralela */
     MPI_Init(NULL, NULL);
     MPI_Comm_size(MPI_COMM_WORLD, &comm_sz); //Tamanho do comunicador ou quantos processos inicializados
-    MPI_Comm_rank(MPI_COMM_WORLD, &my_rank); //Número do processo em execução
-
-    gettimeofday(&start, 0);//início do registro do tempo de execução 
+    MPI_Comm_rank(MPI_COMM_WORLD, &my_rank); //Número do processo em execução   
 
     if (my_rank != 0){
+
+        gettimeofday(&start, 0);//início do registro do tempo de execução
 
         pontos = sorteio(tamanho_problema);
 
@@ -77,11 +77,11 @@ int main (int argc, char *argv[])
             pi = 4.0 * pontos_total / tamanho_problema;
         }
 
+        gettimeofday(&stop, 0);
+
         std::cout << "O valor de Pi e " << pi << std::endl;
 
     }         
-
-    gettimeofday(&stop, 0);
 
     tempo_exec = (double)(stop.tv_usec - start.tv_usec) / 1000000 + (double)(stop.tv_sec - start.tv_sec);
 
