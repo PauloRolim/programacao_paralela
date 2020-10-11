@@ -37,9 +37,7 @@ int main (int argc, char *argv[])
     double pontos = 0.0;
 
     struct timeval start, stop; /* código fornecido pelo professor para registrar o tempo de execução */
-    double tempo_exec;
-
-    
+    double tempo_exec; 
 
     /*Início da região paralela */
     MPI_Init(NULL, NULL);
@@ -78,12 +76,9 @@ int main (int argc, char *argv[])
             tamanho_problema = tamanho_problema * (comm_sz - 1);
             pi = 4.0 * pontos_total / tamanho_problema;
         }
-        
-        
 
         std::cout << "O valor de Pi e " << pi << std::endl;
 
-       
     }         
 
     gettimeofday(&stop, 0);
