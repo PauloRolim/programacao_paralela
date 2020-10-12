@@ -20,6 +20,9 @@ int main(int argc, char *arrgv[]){
     int n_global; //quantidade de trapézios ou tamanho do problema
     int n_local;
 
+    struct timeval start, stop; /* código fornecido pelo professor para registrar o tempo de execução */
+    double tempo_exec;
+    
     /*Variaveis do Mpi*/
     int my_rank, comm_sz;
 
@@ -33,9 +36,12 @@ int main(int argc, char *arrgv[]){
     MPI_Comm_size(MPI_COMM_WORLD, &comm_sz); //Tamanho do comunicador ou quantos processos inicializados
     MPI_Comm_rank(MPI_COMM_WORLD, &my_rank); //Número do processo em execução
 
+    gettimeofday(&start, 0);//início do registro do tempo de execução
+
     incremento = (x_b - x_a)/n_global;
 
-    n_local = n_global/comm_sz;
+    n_local = n_global/comm_sz; //divisão do tamanho do problema pela quantidade de processos
+
     Int_local = 0.0;
 
     for (int i = 0; i < n_local; i++)
@@ -49,7 +55,7 @@ int main(int argc, char *arrgv[]){
 
     if (my_rank != 0)
     {
-        MPI_Send(&Int_local, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
+        MPI_Send(&Int_local, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD); //cada processo envia o resultado do cálculo
        
     } else
     {
@@ -57,7 +63,7 @@ int main(int argc, char *arrgv[]){
 
         for (int q = 1; q < comm_sz; q++)
         {
-            MPI_Recv(&Int_local, 1, MPI_DOUBLE, q, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            MPI_Recv(&Int_local, 1, MPI_DOUBLE, q, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE); //processo mestre recebe e soma todos os valores
 
             Int_global += Int_local;
 
@@ -65,10 +71,15 @@ int main(int argc, char *arrgv[]){
         
     }
 
+    gettimeofday(&stop, 0); //fim do registro do tempo de execução
+
     if (my_rank == 0)
     {
         std::cout << "Com um quantidade de " << n_global << " trapezios ";
         std::cout << "a área aproximada é de: " << Int_global << std::endl;
+
+        tempo_exec = (double)(stop.tv_usec - start.tv_usec) / 1000000 + (double)(stop.tv_sec - start.tv_sec);
+        std::cout << "O tempo de execução foi " << (std::scientific) << tempo_exec << std::endl;
     }
     
     
