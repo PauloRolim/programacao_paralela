@@ -65,10 +65,6 @@ int main (int argc, char *argv[])
             
         }
 
-        std::cout << pontos_total << std::endl;
-        std::cout << tamanho_problema << std::endl;
-
-
         pi = 4.0 * pontos_total / tamanho_problema;
 
         if (comm_sz >= 3)
@@ -77,11 +73,11 @@ int main (int argc, char *argv[])
             pi = 4.0 * pontos_total / tamanho_problema;
         }
 
-        std::cout << "O valor de Pi e " << pi << std::endl;
-
         gettimeofday(&stop, 0);
+
+        std::cout << "O valor de Pi e " << pi << std::endl;
     
-        tempo_exec = (double)(stop.tv_usec - start.tv_usec) / 1000000 + (double)(stop.tv_sec - start.tv_sec);
+        tempo_exec = (stop.tv_usec - start.tv_usec) / 1000000 + (stop.tv_sec - start.tv_sec);
 
         //exibe na tela o tempo de execução em notação científica
         std::cout << "O tempo de execução foi " << (std::scientific) << tempo_exec << std::endl; 
