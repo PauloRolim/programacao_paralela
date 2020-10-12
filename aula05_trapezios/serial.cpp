@@ -1,5 +1,7 @@
 #include <iostream>
 #include <math.h>
+#include <iomanip>
+#include <sys/time.h>
 
 /*Local de inserção da função que será integrada*/
 double funcao (double x){
@@ -13,12 +15,17 @@ int main(int argc, char *arrgv[]){
     double x_a, x_b; //ínicio e fim do intervalo
     double Int; //valor da integral;
     double incremento; 
-    int n; //quantidade de trapézios
+    int n; //quantidade de trapézios ou tamanho do problema
     
+    struct timeval start, stop; /* código fornecido pelo professor para registrar o tempo de execução */
+    double tempo_exec;
+    gettimeofday(&start, 0);//início do registro do tempo de execução
+
+
     /*Set manual dos valores de entrada*/
     x_a = 0.0; //ponto inicial
     x_b = 1.0; //ponto final 
-    n = 100; //quantidade de trapézios ou intervalos
+    n = 200; //quantidade de trapézios ou tamanho do problema
 
     incremento = (x_b - x_a)/n; //subdivide o cálculo conforme a quantidade de trapézios selecionada
 
@@ -33,7 +40,13 @@ int main(int argc, char *arrgv[]){
         x_a = x_b; //atualiza a variável para o próximo vértice do trapézio ou ponto do intervalo
     }
 
+    gettimeofday(&stop, 0); //fim do registro do tempo de execução
+
+    tempo_exec = (double)(stop.tv_usec - start.tv_usec) / 1000000 + (double)(stop.tv_sec - start.tv_sec);
+
     std::cout << "A área aproximada pela regra dos trapezios e: " << Int << std::endl;
    
+    std::cout << "O tempo de execução foi " << (std::scientific) << tempo_exec << std::endl;
+
     return 0;
 }
