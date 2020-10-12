@@ -17,7 +17,6 @@ int main(int argc, char const *argv[]){
     double acumulador;
     double pi_calculado;
     std::string comando;
-    double Pi_real = 3.141592653589793238462643; //valor utilizado para medir a precisão do cálculo
 
     if (argc == 1)
     {
@@ -63,13 +62,13 @@ int main(int argc, char const *argv[]){
             acumulador++;
         }
 
-        pi_calculado = (4.0 * acumulador) / tamanho_problema;  
     }
+
+    pi_calculado = (4.0 * acumulador) / tamanho_problema;  
 
     gettimeofday(&stop, 0); //fim do registro do tempo de execução
     
-    std::cout << "O valor aproximado de Pi é: " << pi_calculado << ", com uma diferença de precisão de " <<
-    fabs(pi_calculado - Pi_real) << std::endl;  
+    std::cout << "O valor aproximado de Pi é: " << pi_calculado << std::endl;  
 
     //cálculo do tempo de execução
     tempo_exec = (double)(stop.tv_usec - start.tv_usec) / 1000000 + (double)(stop.tv_sec - start.tv_sec);
