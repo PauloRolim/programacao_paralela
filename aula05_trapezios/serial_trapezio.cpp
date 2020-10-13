@@ -5,7 +5,7 @@
 
 /*Local de inserção da função que será integrada*/
 double funcao (double x){
-    //função exponecial
+    //função do 2 grau
     return x*x + x + 2;
 
 }
