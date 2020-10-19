@@ -23,9 +23,9 @@ int main(int argc, char *arrgv[]){
 
 
     /*Set manual dos valores de entrada*/
-    x_a = 0.0; //ponto inicial
-    x_b = 1.0; //ponto final 
-    n = 200; //quantidade de trapézios ou tamanho do problema
+    x_a = 1.0; //ponto inicial
+    x_b = 3.0; //ponto final 
+    n = 5000000; //quantidade de trapézios ou tamanho do problema
 
     incremento = (x_b - x_a)/n; //subdivide o cálculo conforme a quantidade de trapézios selecionada
 

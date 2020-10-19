@@ -39,7 +39,7 @@ int main(int argc, char const *argv[]){
 
         /* Cálculo de Pi */
 
-        for (int i = my_rank +1; i <= tamanho_problema; i += comm_sz)
+        for (int i = my_rank +1; i <= tamanho_problema; i=comm_sz + i)
         {
 
             std::random_device rd;
@@ -58,6 +58,7 @@ int main(int argc, char const *argv[]){
             /* Fim do cálculo de Pi */
         pi_local = (4.0 * acumulador) / tamanho_problema; 
 
+        
         /*função responsável por somar e reduzir todos os dados gerados nos processos paralelos em um
         conjunto menor de números. Na prátia essa função está recebendo todos os valores calculados
         somando e atribuindo a variável global pi_global*/

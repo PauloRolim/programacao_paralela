@@ -27,9 +27,9 @@ int main(int argc, char *arrgv[]){
     int my_rank, comm_sz;
 
     /*Set manual dos valores de entrada*/
-    x_a = 0.0; //ponto inicial
-    x_b = 1.0; //ponto final 
-    n_global = 200; //quantidade de trapézios ou tamanho do problema
+    x_a = 1.0; //ponto inicial
+    x_b = 3.0; //ponto final 
+    n_global = 5000000; //quantidade de trapézios ou tamanho do problema
 
     /*Área Paralela*/
     MPI_Init(NULL, NULL);
