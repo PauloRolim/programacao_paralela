@@ -1,13 +1,33 @@
 #include <iostream>
+#include <random>
 
-#define tamanho_problema 10
+#define tamanho_problema 17
 
 int main(){
 
-    int vetor[tamanho_problema] = {29, 15, 36, 44, 92, 51, 67, 88, 33, 20};
-    int estagio;
+   
+
+    int vetor[tamanho_problema];
+    int estagio; 
     int i;
     int var_local;
+
+    std::cout << "Númermos que serão ordenados: " << std::endl;
+
+    for (i = 0; i < tamanho_problema; i++)
+    {
+        std::random_device rd;
+        std::default_random_engine gen(rd());
+        std::uniform_int_distribution<>dis(0,16);
+        int valor_aleatorio = std::round(dis(gen));
+
+        vetor[i] = valor_aleatorio;
+        std::cout << vetor[i] << " ";
+
+    }
+    
+    std::cout << std::endl;
+    std::cout << "Números após ordenação: "  << std::endl;
 
     for (estagio = 0; estagio < tamanho_problema; estagio++)
     {
@@ -44,7 +64,7 @@ int main(){
     
     for (int o = 0; o < tamanho_problema; o++)
     {
-        std::cout << vetor[o] << std::endl;
+        std::cout << vetor[o] << " " << std::endl;
     }
     
 
