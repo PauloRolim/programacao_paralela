@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <random>
 
-#define tamanho_problema 16
+#define tamanho_problema 32
 
 int main(int argc, char *argv[]){
 
@@ -17,7 +17,7 @@ int main(int argc, char *argv[]){
     {
         std::random_device rd;
         std::default_random_engine gen(rd());
-        std::uniform_int_distribution<>dis(1,16);
+        std::uniform_int_distribution<>dis(0,tamanho_problema);
         
         int valor_aleatorio = std::round(dis(gen));
 
@@ -32,11 +32,12 @@ int main(int argc, char *argv[]){
 
     tamanho_msg = tamanho_problema / comm_sz;
   
-    
     int vetor_local[tamanho_msg];
 
+    
     if (my_rank == 0)
-    {
+    {   
+        std::cout << "Vetor INICIAL desordenado: ";
         for (int i = 0; i < tamanho_problema; i++)
         {
             std::cout << vetor_entrada[i] << " ";
@@ -48,7 +49,7 @@ int main(int argc, char *argv[]){
     MPI_Scatter (vetor_entrada, tamanho_msg, MPI_INT, &vetor_local, tamanho_msg, MPI_INT, 0, MPI_COMM_WORLD);
 
     MPI_Barrier(MPI_COMM_WORLD);
-    
+        /*
         std::cout << "Processo " << my_rank << " recebido: ";
 
         for (int i = 0; i < tamanho_msg; i++)
@@ -57,7 +58,7 @@ int main(int argc, char *argv[]){
         }
         
         std::cout << " " << std::endl;
-
+        */
         int var_local;
         int estagio;
         int i;
@@ -88,7 +89,7 @@ int main(int argc, char *argv[]){
                 }   
             }    
         }
-
+        /*
         std::cout << "Processo " << my_rank << " ordenado: ";
 
         for (int i = 0; i < tamanho_msg; i++)
@@ -99,6 +100,9 @@ int main(int argc, char *argv[]){
       //  MPI_Send(vetor_local, tamanho_msg, MPI_INT, 0, my_rank, MPI_COMM_WORLD);
   
     std::cout << " " << std::endl;       
+    */
+
+    std::cout << " " << std::endl; 
 
     MPI_Barrier(MPI_COMM_WORLD);
 
