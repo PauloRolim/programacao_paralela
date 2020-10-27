@@ -100,6 +100,53 @@ int main(int argc, char *argv[]){
   
     std::cout << " " << std::endl;       
 
+    MPI_Barrier(MPI_COMM_WORLD);
+
+    MPI_Gather(vetor_local,tamanho_msg,MPI_INT,vetor_entrada,tamanho_msg,MPI_INT,0,MPI_COMM_WORLD);
+
+    if (my_rank == 0)
+    {
+
+        int var_local;
+        int estagio;
+        int i;
+
+        for (estagio = 0; estagio < tamanho_problema; estagio++)
+        {
+            if (estagio % 2 == 0) // Fase par da ordenação
+            {
+                for (i = 1; i < tamanho_problema; i+=2)
+                {
+                    if (vetor_entrada[i-1] > vetor_entrada[i])
+                    {
+                        var_local = vetor_entrada[i];
+                        vetor_entrada[i] = vetor_entrada[i - 1];
+                        vetor_entrada[i - 1] = var_local;
+                    }
+                }         
+            } else // Fase ímpar da ordenação
+            {
+                for (i = 1; i < tamanho_problema - 1; i+=2)
+                {
+                    if (vetor_entrada[i] > vetor_entrada[i+1])
+                    {
+                        var_local = vetor_entrada[i];
+                        vetor_entrada[i] = vetor_entrada[i+1];
+                        vetor_entrada[i+1] = var_local;
+                    }   
+                }   
+            }    
+        }
+
+        std::cout << "Vetor FINAL ordenado: ";
+        for (int i = 0; i < tamanho_problema; i++)
+        {
+            std::cout << vetor_entrada[i] << " ";
+        }
+        
+        std::cout << " " << std::endl;
+    }
+
     MPI_Finalize();
     return 0;
 }
