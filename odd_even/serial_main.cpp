@@ -55,7 +55,7 @@ int main(int argc, char *argv[]){
 
         std::random_device rd;
         std::default_random_engine gen(rd());
-        std::uniform_int_distribution<>dis(1,16);
+        std::uniform_int_distribution<>dis(0,999);
         int valor_aleatorio = std::round(dis(gen));
 
         vetor_entrada[i] = valor_aleatorio;

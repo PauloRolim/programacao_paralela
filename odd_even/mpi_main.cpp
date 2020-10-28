@@ -5,7 +5,7 @@
 #include <random>
 #include <sys/time.h>
 
-#define tamanho_problema 200000
+#define tamanho_problema 9000
 
 int main(int argc, char *argv[]){
 
@@ -22,7 +22,7 @@ int main(int argc, char *argv[]){
     {
         std::random_device rd;
         std::default_random_engine gen(rd());
-        std::uniform_int_distribution<>dis(0,tamanho_problema);
+        std::uniform_int_distribution<>dis(0,999);
         
         int valor_aleatorio = std::round(dis(gen));
 
