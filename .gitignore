@@ -13,3 +13,5 @@ aula05_trapezios/mpi_trapezio
 odd_even/teste
 odd_even/mpi_teste
 odd_even/teste_mpi_2
+odd_even/tempo_de_exe_mpi.txt
+odd_even/tempo_de_exe_serial.txt
