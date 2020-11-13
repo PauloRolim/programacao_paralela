@@ -1,4 +1,6 @@
 #include <iostream>
+#include <random>
+#include <sys/time.h>
 
 #define tamanho_problema 3
 
@@ -26,23 +28,53 @@ void mostraMatriz(int matriz[tamanho_problema][tamanho_problema]){
     std::cout << "\n\n"; 
 }
 
+void preencherMatriz(int matriz[tamanho_problema][tamanho_problema]){
+    
+    std::random_device rd;
+    std::default_random_engine gen(rd());
+    std::uniform_int_distribution<>dis(0,9);
+
+    for (int i = 0; i < tamanho_problema; i++)
+    {
+        for (int j = 0; j < tamanho_problema; j++)
+        {
+            matriz[i][j] = std::round(dis(gen));
+        }   
+    }    
+}
+
 int main(){
 
-    int matrizA[3][3] = {1, 2, 3,
-                         4, 5, 6,
-                         7, 8, 9 };
+    struct timeval start, stop;
 
-    int matrizB[3][3] = {9, 8, 7,
-                         6, 5, 4,
-                         3, 2, 1};
+    int matrizA[tamanho_problema][tamanho_problema];
+    int matrizB[tamanho_problema][tamanho_problema];
+    
 
-    int matrizC[3][3];
+    gettimeofday(&start, 0);
 
-    multiplicar(matrizA, matrizB, matrizC);
+    preencherMatriz(matrizA);
+    preencherMatriz(matrizB);
 
     mostraMatriz(matrizA);
     mostraMatriz(matrizB);
-    mostraMatriz(matrizC);
+
+    gettimeofday(&stop, 0);
+
+     FILE *fp;
+		char outputFilename[] = "tempo_de_exe_serial.txt";
+	
+		fp = fopen(outputFilename, "a");
+		if (fp == NULL) {
+			fprintf(stderr, "Can't open output file %s!\n", outputFilename);
+			exit(1);
+		}
+	
+		//testes de impressão no arquivo
+		fprintf(fp, "\t%1.2e ", (double)(stop.tv_usec - start.tv_usec) / 1000000 + (double)(stop.tv_sec - start.tv_sec));
+		fprintf(fp, "\t%d ",tamanho_problema); //tamanho do problema+1
+
+		fclose(fp);
 
     return 0;
 }
